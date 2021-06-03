@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="default" extends="struts-default" >
+        <action name="upload">
+            <result>/uploadImage.jsp</result>
+        </action>
+        <action name="uploadImage" class="io.learning.action.UploadImageAction">
+            <interceptor-ref name="fileUploadStack"/>
+            <result name="success" > /uploadSuccess.jsp </result>
+            <result name="error"> /error.jsp </result>
+        </action>
+    </package>
+</struts>
