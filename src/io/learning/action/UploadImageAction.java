@@ -24,7 +24,7 @@ public class UploadImageAction extends ActionSupport {
     public String execute() {
         try {
             System.out.println(imageFileFileName);
-            newName = FileUtil.saveFile(imageFile);
+            newName = FileUtil.saveFile(imageFileFileName, imageFile);
         } catch (IOException exception) {
             exception.printStackTrace();
             return ERROR;
