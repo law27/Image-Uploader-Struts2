@@ -17,13 +17,13 @@ public class FileUtil {
     private static final String compressedPath = "/home/lawrance/images/compressed";
     private static final String uncompressedPath = "/home/lawrance/images/uncompressed";
 
-    public static void saveCompressedFile(File file, String id) throws IOException {
+    public static void saveCompressedFile(File file, String id, String format) throws IOException {
         BufferedImage image = ImageIO.read(file);
-        String compressedImageName = id + "_compressed.jpeg";
+        String compressedImageName = id + "_compressed." + format;
         File compressedImage = new File(compressedPath, compressedImageName);
         OutputStream os = new FileOutputStream(compressedImage);
 
-        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpeg");
+        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(format);
         ImageWriter writer = writers.next();
 
         ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(os);
@@ -40,12 +40,14 @@ public class FileUtil {
         writer.dispose();
     }
 
-    public static String saveFile(File file) throws IOException {
+    public static String saveFile(String fileName, File file) throws IOException {
+        String[] formatExtract = fileName.split("\\.");
+        String format = formatExtract[formatExtract.length - 1];
         String id = UUID.randomUUID().toString();
-        String newName = id + ".jpeg";
+        String newName = id + "." + format;
         File destination = new File(uncompressedPath, newName);
         FileUtils.copyFile(file, destination);
-        saveCompressedFile(file, id);
+        saveCompressedFile(file, id, format);
         return id;
     }
 }
